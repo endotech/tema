@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お題カード</title>
+    <style>
+        body { font-family: "Arial", sans-serif; text-align: center; background-color: #fffaf0; margin: 20px; }
+        h1 { color: #ff7eb3; font-size: 24px; }
+        
+        .container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+            gap: 15px; 
+            justify-content: center;
+            max-width: 600px; 
+            margin: auto;
+        }
+
+        .card {
+            width: 120px; height: 150px;
+            background-color: #ffb6c1;
+            color: #fff; font-size: 18px; display: flex;
+            align-items: center; justify-content: center;
+            border-radius: 15px; cursor: pointer;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card .front, .card .back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; display: flex;
+            align-items: center; justify-content: center;
+            padding: 10px;
+            border-radius: 15px;
+            font-size: 16px; text-align: center;
+        }
+
+        .card .front {
+            background-color: #ffccdf; color: #ff4081;
+            font-size: 22px; font-weight: bold;
+        }
+
+        .card .back {
+            background-color: #ff7eb3; color: white;
+            transform: rotateY(180deg);
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* スマホ対応 */
+        @media (max-width: 480px) {
+            .container { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 10px; 
+            }
+            .card { width: 100px; height: 130px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🌸 お題カードをタップして、お題を選ぼう 🌸</h1>
+    <div class="container">
+        <!-- カードを自動配置 -->
+    </div>
+
+    <script>
+        const topics = [
+            "家族で一番面白いと思う人は誰？どんなところが面白い？",
+            "家族での楽しかった思い出は？",
+            "中学になってよく話すようになった人は？",
+            "クラスで一番よく話す人は？",
+            "将来やってみたいこと",
+            "今、夢中になっていること",
+            "友達とはどんな話をする？",
+            "テストで頑張りたい教科",
+            "心配な教科",
+            "100万円を手に入れたときの使い道",
+            "一番リラックスできる時間の過ごし方は？",
+            "「これだけは譲れない！」と思うこだわりはある？"
+        ];
+
+        const container = document.querySelector(".container");
+
+        topics.forEach((topic) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+                <div class="front">🎀 Tap!</div>
+                <div class="back">${topic}</div>
+            `;
+            card.addEventListener("click", () => {
+                card.classList.toggle("flipped");
+            });
+            container.appendChild(card);
+        });
+    </script>
+
+</body>
+</html>
